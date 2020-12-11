@@ -1,29 +1,29 @@
-FROM    ubuntu:bionic
+FROM    ubuntu:focal
 
-ENV     PKGS="\
+ARG     PKGS="\
 byobu \
 chrony \
 rsync \
 ssh \
 "
 
-ARG     REGION=ap-southeast-2
+#ARG    MIRROR=http://ap-southeast-2.ec2.archive.ubuntu.com
+ARG     MIRROR=http://azure.archive.ubuntu.com
+ARG     DEBIAN_FRONTEND=noninteractive
 
-RUN     sed -ri -e "s/(archive|security)\.ubuntu\.com/${REGION}.ec2.archive.ubuntu.com/" /etc/apt/sources.list && \
+RUN     sed -ri -e "s/http:\/\/(archive|security)\.ubuntu\.com/${MIRROR}/" /etc/apt/sources.list && \
         apt update && \
         apt upgrade -y && \
-        apt install --no-install-recommends -y ${PKGS} && \
-        apt autoremove --purge -y && \
+        apt install --no-install-recommends --autoremove --purge -y ${PKGS} && \
         rm -rf /var/lib/apt/lists/* && \
         rm -fv /etc/ssh/ssh_host_*key*
 
 USER    root
 
-COPY    authorized_keys /root/.ssh/
 COPY    chrony.conf /etc/chrony/
 COPY    entrypoint.sh /usr/local/bin/
 
-RUN     chmod 755 /usr/local/bin/entrypoint.sh && chmod 700 /root/.ssh && chmod 600 /root/.ssh/authorized_keys
+RUN     chmod 755 /usr/local/bin/entrypoint.sh
 
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 
