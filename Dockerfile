@@ -10,7 +10,7 @@ ssh \
 ARG     MIRROR=http://azure.archive.ubuntu.com
 ARG     DEBIAN_FRONTEND=noninteractive
 
-RUN     sed -ri -e "s/http:\/\/(archive|security)\.ubuntu\.com/${MIRROR}/" /etc/apt/sources.list && \
+RUN     sed -ri -e "s^http://(archive|security)\.ubuntu\.com^${MIRROR}^" /etc/apt/sources.list && \
         apt update && \
         apt upgrade -y && \
         apt install --no-install-recommends --autoremove --purge -y ${PKGS} && \
