@@ -1,4 +1,5 @@
-FROM    ubuntu:bionic
+ARG     UBUNTU_RELEASE=focal
+FROM    ubuntu:${UBUNTU_RELEASE}
 
 ARG     PKGS="\
 byobu \
@@ -8,9 +9,13 @@ ssh \
 "
 #ARG    MIRROR=http://ap-southeast-2.ec2.archive.ubuntu.com
 ARG     MIRROR=http://azure.archive.ubuntu.com
-ARG     DEBIAN_FRONTEND=noninteractive
+ARG     UBUNTU_RELEASE=focal
+ENV     DEBIAN_FRONTEND=noninteractive
 
-RUN     sed -ri -e "s^http://(archive|security)\.ubuntu\.com^${MIRROR}^" /etc/apt/sources.list && \
+RUN     sed -ri \
+                -e "s^http://.*archive\.ubuntu\.com^${MIRROR}^" \
+                -e "1i deb ${MIRROR}/ubuntu/ ${UBUNTU_RELEASE}-security main restricted universe multiverse\n" \
+                /etc/apt/sources.list && \
         apt update && \
         apt upgrade -y && \
         apt install --no-install-recommends --autoremove --purge -y ${PKGS} && \
