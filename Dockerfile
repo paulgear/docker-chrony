@@ -7,8 +7,8 @@ ssh \
 ENV     DEBIAN_FRONTEND=noninteractive
 
 RUN     apt update && \
-        apt upgrade -y && \
-        apt install --no-install-recommends --autoremove --purge -y ${PKGS} && \
+        apt install --no-install-recommends -y ${PKGS} && \
+        apt upgrade --autoremove --purge -y && \
         rm -rf /var/lib/apt/lists/* && \
         rm -fv /etc/ssh/ssh_host_*key*
 
