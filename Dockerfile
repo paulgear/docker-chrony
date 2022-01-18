@@ -22,4 +22,4 @@ RUN     chmod 755 /usr/local/bin/entrypoint.sh
 ENV     SSH_AUTHORIZED_KEYS="# This should be replaced at runtime with your authorised ssh key(s)"
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 
-CMD     ["-n", "-x"]
+CMD     ["-d", "-n", "-x"]
