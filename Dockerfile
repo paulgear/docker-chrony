@@ -21,6 +21,7 @@ COPY    entrypoint.sh /usr/local/bin/
 
 RUN     chmod 755 /usr/local/bin/entrypoint.sh
 
+EXPOSE  80
 ENV     SSH_AUTHORIZED_KEYS="# This should be replaced at runtime with your authorised ssh key(s)"
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 
