@@ -1,6 +1,7 @@
 FROM    paulgear/base
 
 ARG     PKGS="\
+apache2 \
 chrony \
 ssh \
 "
@@ -15,6 +16,7 @@ RUN     apt update && \
 USER    root
 
 COPY    chrony.conf /etc/chrony/
+COPY    000-default.conf /etc/apache2/sites-available/
 COPY    entrypoint.sh /usr/local/bin/
 
 RUN     chmod 755 /usr/local/bin/entrypoint.sh
