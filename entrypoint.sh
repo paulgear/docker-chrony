@@ -11,6 +11,7 @@ chmod 600 $SSH/authorized_keys
 rm -fv /etc/ssh/ssh_host_*key*
 dpkg-reconfigure openssh-server
 service ssh start
+service apache2 start
 
 # add PTP device to chrony configuration, if present
 if [ -e /dev/ptp0 ]; then
