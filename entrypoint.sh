@@ -18,4 +18,5 @@ if [ -e /dev/ptp0 ]; then
     echo "refclock PHC /dev/ptp0 dpoll -2" >> /etc/chrony/chrony.conf
 fi
 
+(sleep 10; chmod 755 /var/log/chrony) &
 /usr/sbin/chronyd "$@"

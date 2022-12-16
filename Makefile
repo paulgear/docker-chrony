@@ -2,7 +2,7 @@ REGISTRY=
 LOGIN=paulgear
 REPO=chrony
 
-default: push
+default: run
 
 build:
 	docker build -t $(REGISTRY)$(LOGIN)/$(REPO) .
