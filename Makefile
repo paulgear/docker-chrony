@@ -11,4 +11,4 @@ push:	build
 	docker push $(REGISTRY)$(LOGIN)/$(REPO)
 
 run:	build
-	docker run --rm --env SSH_AUTHORIZED_KEYS='$(file < $(HOME)/.ssh/id_rsa.pub)' -ti $(REGISTRY)$(LOGIN)/$(REPO)
+	docker run --rm --env SSH_AUTHORIZED_KEYS='$(file < $(HOME)/.ssh/id_rsa.pub)' --env PLATFORM_DIAGNOSTICS=true -ti $(REGISTRY)$(LOGIN)/$(REPO)

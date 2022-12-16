@@ -16,6 +16,23 @@ service apache2 start
 # add PTP device to chrony configuration, if present
 if [ -e /dev/ptp0 ]; then
     echo "refclock PHC /dev/ptp0 dpoll -2" >> /etc/chrony/chrony.conf
+else
+    echo "No PTP device"
+fi
+
+if [ -n "$PLATFORM_DIAGNOSTICS" ]; then
+    echo "*** env"
+    env | sort
+    echo "*** /dev"
+    ls -la /dev
+    echo "*** dmesg"
+    dmesg
+    echo "*** cpu"
+    cat /proc/cpuinfo
+    grep . /sys/devices/system/cpu/vulnerabilities/*
+    echo "*** network"
+    ip a
+    ip r
 fi
 
 (sleep 10; chmod 755 /var/log/chrony) &
