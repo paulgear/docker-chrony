@@ -1,0 +1,6 @@
+version: "3.7"
+services:
+  chrony:
+    image: paulgear/chrony:latest
+    environment:
+      - SSH_AUTHORIZED_KEYS="ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIF/1f+9F1Gk/USScMhaDaAUzhn66Wo2z2pNMd6XqEMeH"
